@@ -9,7 +9,7 @@ async def login():
     print("----登录...")
     global task_result
     # 登录的 URL
-    login_url = 'https://aaaafallin.app/auth/login'
+    login_url = 'https://fallin.app/auth/login'
     # Cookie
     cookie = {}
     # 登录表单数据
