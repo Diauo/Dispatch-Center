@@ -37,17 +37,6 @@ def run_task(task):
     task_name = task['task_name']
     log("开始执行",task_name=task_name)
     status = '0'
-    # try:
-    #     result = subprocess.run(['python', filename], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    #     output_str = result.stdout.decode().strip().split("\r")[-1].replace("\n","").replace("\'","\"")
-    #     task_result = json.loads(output_str)
-    #     status = task_result['status']
-    #     msg = task_result['msg']
-    #     # 记录任务结束消息到日志文件
-    #     log(task_name=task_name, result=status, msg=msg)
-    # except Exception as e:
-    #     exc_type, exc_value, exc_traceback = sys.exc_info()
-    #     log(task_name=task_name, msg=f"任务中断：{exc_type.__name__}")
     result = subprocess.run(['python', filename], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output_str = result.stdout.decode().strip().split("|")[-1].replace("\'","\"")
     task_result = json.loads(output_str)
@@ -55,8 +44,6 @@ def run_task(task):
     msg = task_result['msg']
     # 记录任务结束消息到日志文件
     log(task_name=task_name, result=status, msg=msg)
-
-    
     if status == '1':
         #如果运行成功，则清除掉重试任务
         schedule.clear(task_name+"_retry")
